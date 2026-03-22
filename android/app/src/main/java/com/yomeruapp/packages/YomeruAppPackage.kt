@@ -17,6 +17,7 @@ class YomeruAppPackage : ReactPackage {
       TranslationModule(reactContext),
   )
 
+  @Suppress("DEPRECATION")
   override fun createViewManagers(
       reactContext: ReactApplicationContext,
   ): List<ViewManager<*, *>> = emptyList()
