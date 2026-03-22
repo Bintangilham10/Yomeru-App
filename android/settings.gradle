@@ -1,6 +1,33 @@
 pluginManagement { includeBuild("../node_modules/@react-native/gradle-plugin") }
 plugins { id("com.facebook.react.settings") }
-extensions.configure(com.facebook.react.ReactSettingsExtension){ ex -> ex.autolinkLibrariesFromCommand() }
+
+def generatedAutolinkingDir = new File(rootDir, "build/generated/autolinking")
+def generatedAutolinkingFile = new File(generatedAutolinkingDir, "autolinking.json")
+
+if (!generatedAutolinkingFile.exists()) {
+    generatedAutolinkingDir.mkdirs()
+    generatedAutolinkingFile.text =
+        """
+        {
+          "reactNativeVersion": "0.84.1",
+          "dependencies": {},
+          "project": {
+            "android": {
+              "sourceDir": "android/app",
+              "appName": "app",
+              "packageName": "com.yomeruapp",
+              "applicationId": "com.yomeruapp",
+              "mainActivity": ".MainActivity",
+              "watchModeCommandParams": [],
+              "dependencyConfiguration": "implementation"
+            }
+          }
+        }
+        """
+            .stripIndent()
+            .trim()
+}
+
 rootProject.name = 'com.yomeruapp'
 include ':app'
 includeBuild('../node_modules/@react-native/gradle-plugin')
